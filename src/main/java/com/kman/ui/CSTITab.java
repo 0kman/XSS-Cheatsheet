@@ -82,7 +82,6 @@ public class CSTITab extends GenericTab{
         for (SavedResponse response : this.saved){
             // If blank then update
             if (response.response.equals("")){
-                update();
                 return;
             }
 

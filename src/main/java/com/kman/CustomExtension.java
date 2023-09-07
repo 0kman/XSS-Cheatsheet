@@ -20,6 +20,7 @@ public class CustomExtension implements BurpExtension {
         this.functions = new Functions(api, logging, data);
 
         logging.logToOutput("XSS Cheatsheet v1.0 - All credit to PortSwigger research: https://portswigger.net/web-security/cross-site-scripting/cheat-sheet");
+        logging.logToOutput("Developed by Kai Mannion");
         functions.loadReponses();
         logging.logToOutput("Loaded persisted data (if any).");
 

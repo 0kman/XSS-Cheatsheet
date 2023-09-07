@@ -324,7 +324,6 @@ public class EventHandlersTab extends GenericTab{
         for (SavedResponse response : saved){
             // If blank then update
             if (response.response.equals("")){
-                this.update();
                 return;
             }
             // Parse JSON

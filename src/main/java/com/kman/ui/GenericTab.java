@@ -82,7 +82,6 @@ public class GenericTab extends JPanel {
         for (SavedResponse response : this.saved){
             // If blank then update
             if (response.response.equals("")){
-                update();
                 return;
             }
             // Parse response
