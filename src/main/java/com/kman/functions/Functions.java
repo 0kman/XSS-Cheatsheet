@@ -248,6 +248,22 @@ public class Functions {
             }
         };
     }
+    // Return Abstract Action to enable copying multiple items
+    public AbstractAction multipleCopyAction(JTable table, Integer column){
+        return new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[] rows = table.getSelectedRows();
+                String payloads = "";
+                for (int row : rows){
+                    payloads += table.getValueAt(table.convertRowIndexToModel(row), column) + "\n";
+                }
+                StringSelection selection = new StringSelection(payloads);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+            }
+        };
+    }
     // Return popup menu listener that automatically selects row
     public PopupMenuListener createPopUpMenuListener(JTable table, JPopupMenu menu){
         return new PopupMenuListener() {

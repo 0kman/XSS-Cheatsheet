@@ -52,6 +52,7 @@ public class GenericTab extends JPanel {
         tbl.setAutoCreateRowSorter(true);
         tbl.getTableHeader().setReorderingAllowed(false);
         tbl.setAutoCreateRowSorter(true);
+        tbl.getActionMap().put("copy", functions.multipleCopyAction(tbl, 2));
         // Popup menu
         JPopupMenu menu = new JPopupMenu();
         JMenuItem menuItem = new JMenuItem("Copy");
@@ -65,6 +66,7 @@ public class GenericTab extends JPanel {
         tbl.getColumnModel().getColumn(1).setMinWidth(120);
         tbl.getColumnModel().getColumn(1).setMaxWidth(800);
         tbl.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());// Word wrap payload column
         // Add listeners
         menuItem.addActionListener(functions.createActionListener(tbl, 2));
         menu.addPopupMenuListener(functions.createPopUpMenuListener(tbl, menu));

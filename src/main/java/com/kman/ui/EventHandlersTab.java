@@ -304,8 +304,8 @@ public class EventHandlersTab extends GenericTab{
             {
                 int[] rows = tblPayloads.getSelectedRows();
                 List<Event> events = new ArrayList<>();
-                for (int i=0; i<=rows.length; i++){
-                    events.add(eventHandlerModel.getEvent(tblPayloads.convertRowIndexToModel(i)));
+                for (int row : rows){
+                    events.add(eventHandlerModel.getEvent(tblPayloads.convertRowIndexToModel(row)));
                 }
                 String codes = "";
                 for (Event event : events){

@@ -45,6 +45,7 @@ public class PrototypePollutionTab extends GenericTab{
         // Table config
         tbl.setAutoCreateRowSorter(true);
         tbl.getTableHeader().setReorderingAllowed(false);
+        tbl.getActionMap().put("copy", functions.multipleCopyAction(tbl, 1));
         // Popup menu
         JPopupMenu menu = new JPopupMenu();
         JMenuItem menuItem = new JMenuItem("Copy");
