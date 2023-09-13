@@ -87,6 +87,7 @@ public class Functions {
     // Get all tag names to populate Tags table
     public void getTagNames(JsonObject jsonObject, DefaultTableModel tagModel){
         tagModel.addRow(new Object[] { "All tags" });
+        tagModel.addRow(new Object[] { "custom tags" });
         // Parse JSON
         for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
             String name = e.getKey();
@@ -95,7 +96,7 @@ public class Functions {
             for (JsonElement j : tags) {
                 JsonObject obj = j.getAsJsonObject();
                 String tagName = obj.get("tag").getAsString();
-                if (!data.tagNames.contains(tagName) && !data.tagNames.contains(tagName.replaceAll("[0-9]", ""))){
+                if (!data.tagNames.contains(tagName) && !data.tagNames.contains(tagName.replaceAll("[0-9]", "")) && !tagName.equals("custom tags")){
                     data.tagNames.add(tagName);
                 }
             }
@@ -104,10 +105,7 @@ public class Functions {
         Collections.sort(data.tagNames);
         // Add rows to model
         for (String tag : data.tagNames){
-            if (tag.equals("*")){
-                tagModel.addRow(new Object[] { "custom tags" });
-            }
-            else{
+            if (!tag.equals("*")){
                 tagModel.addRow(new Object[] { tag });
             }
         }
