@@ -103,6 +103,7 @@ public class GenericTab extends JPanel {
     }
     // Update SavedResponses via Github
     public void update(){
+        List<SavedResponse> saved = this.saved;
         Thread thread = new Thread(){
             @Override
             public void run() {
