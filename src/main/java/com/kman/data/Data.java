@@ -2,6 +2,8 @@ package com.kman.data;
 
 import burp.api.montoya.MontoyaApi;
 import burp.api.montoya.logging.Logging;
+import com.coreyd97.BurpExtenderUtilities.DefaultGsonProvider;
+import com.coreyd97.BurpExtenderUtilities.Preferences;
 import com.kman.objects.Event;
 import com.kman.objects.SavedResponse;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class Data {
     public MontoyaApi api;
     public Logging logging;
+    public Preferences preferences;
     public List<SavedResponse> saved = new ArrayList<>();
     public List<Event> events = new ArrayList<>();
     public List<String> tagNames = new ArrayList<>();
@@ -24,6 +27,7 @@ public class Data {
     public Data(MontoyaApi api, Logging logging) {
         this.api = api;
         this.logging = logging;
+        this.preferences = new Preferences(api, new DefaultGsonProvider());
         saved.add(new SavedResponse("Event handlers", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/events.json", ""));
         saved.add(new SavedResponse("Consuming tags", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/consuming_tags.json", ""));
         saved.add(new SavedResponse("File upload attacks", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/file_uploads.json", ""));
@@ -37,7 +41,7 @@ public class Data {
         saved.add(new SavedResponse("Client-side template injection (VueJS)", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/vuejs.json", ""));
         saved.add(new SavedResponse("Client-side template injection (AngularJS)", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/angularjs.json", ""));
         saved.add(new SavedResponse("Scriptless attacks", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/dangling_markup.json", ""));
-        saved.add(new SavedResponse("Polygots", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/polyglot.json", ""));
+        saved.add(new SavedResponse("Polyglots", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/polyglot.json", ""));
         saved.add(new SavedResponse("WAF bypass global objects", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/waf_bypass_global_obj.json", ""));
         saved.add(new SavedResponse("Content types", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/content-types.json", ""));
         saved.add(new SavedResponse("Response content types", "https://raw.githubusercontent.com/PortSwigger/xss-cheatsheet-data/master/json/response-content-types.json", ""));

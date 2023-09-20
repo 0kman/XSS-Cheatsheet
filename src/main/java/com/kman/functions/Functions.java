@@ -2,11 +2,9 @@ package com.kman.functions;
 
 import burp.api.montoya.MontoyaApi;
 import burp.api.montoya.logging.Logging;
-import burp.api.montoya.persistence.PersistedList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.kman.data.Data;
 import com.kman.objects.Event;
 import com.kman.objects.SavedResponse;
@@ -21,11 +19,12 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static java.util.Objects.isNull;
 
 public class Functions {
     MontoyaApi api;
@@ -46,29 +45,53 @@ public class Functions {
         }
         return null;
     }
-    // Save JSON responses to PersistedList
+    // Save JSON responses to global preferences
     public void saveResponses(){
         mutex.lock();
-        PersistedList<String> toSave = PersistedList.persistedStringList();
+        List<JsonObject> toSave = new ArrayList<>();
         for (SavedResponse resp : data.saved){
             toSave.add(resp.toJSON());
         }
-        api.persistence().extensionData().setStringList("saved", toSave);
+        try{
+            data.preferences.setSetting("saved", toSave);
+        }
+        catch (Exception e){
+            data.logging.logToOutput(e.toString());
+        }
         mutex.unlock();
     }
-    // Load JSON responses from PersistedList
-    public void loadReponses(){
-        if (!isNull(api.persistence().extensionData().getStringList("saved"))){
+    // Load JSON responses from global preferences or JSON files
+    public void loadReponses() {
+        // Get persisted data
+        List<JsonObject> json = data.preferences.getSetting("saved");
+        // If no persisted data
+        if (json.size() == 0){
+            logging.logToOutput("Persisted data not found, falling back to local copy!");
+            // Load from json files
             mutex.lock();
-            for (String jsonObj : api.persistence().extensionData().getStringList("saved")){
-                JsonObject json = new JsonParser().parse(jsonObj).getAsJsonObject();
+            for (SavedResponse resp : data.saved){
+                String[] url = resp.url.split("/");
+                String fileName = "json/" + url[url.length - 1];
+                try {
+                    resp.response = new String(getClass().getClassLoader().getResourceAsStream(fileName).readAllBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            mutex.unlock();
+        }
+        // If persisted data
+        else {
+            mutex.lock();
+            for (JsonObject jsonObj : json){
                 for (SavedResponse resp : data.saved){
-                    if (resp.name.equals(json.get("name").getAsString())){
-                        resp.response = json.get("response").getAsString();
+                    if (resp.name.equals(jsonObj.get("name").getAsString())){
+                        resp.response = jsonObj.get("response").getAsString();
                     }
                 }
             }
             mutex.unlock();
+            logging.logToOutput("Loaded persisted data!");
         }
     }
     // Get all event names to populate Events table
@@ -109,6 +132,7 @@ public class Functions {
                 tagModel.addRow(new Object[] { tag });
             }
         }
+        tagModel.fireTableDataChanged();
     }
     // Search all events by any combination of tag, event and browser
     public List<Event> searchByElement(String tag, String eventName, String browser){

@@ -12,11 +12,11 @@ public class SavedResponse {
         this.url = url;
         this.response = response;
     }
-    // Return object as JSON string
-    public String toJSON(){
+    // Return object as JSON
+    public JsonObject toJSON(){
         JsonObject json = new JsonObject();
         json.addProperty("name", this.name);
         json.addProperty("response", this.response);
-        return json.toString();
+        return json;
     }
 }

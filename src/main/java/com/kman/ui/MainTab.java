@@ -107,12 +107,12 @@ public class MainTab extends JPanel {
                 null);
         tabs.add(scriptlessAttacksTab);
 
-        GenericTab polygotsTab = new GenericTab(new GridLayout(0,1),
+        GenericTab polyglotsTab = new GenericTab(new GridLayout(0,1),
                 functions,
                 data,
-                Arrays.asList(functions.loadData("Polygots")),
+                Arrays.asList(functions.loadData("Polyglots")),
                 null);
-        tabs.add(polygotsTab);
+        tabs.add(polyglotsTab);
 
         GenericTab wafBypassTab = new GenericTab(new GridLayout(0,1),
                 functions,
@@ -162,7 +162,7 @@ public class MainTab extends JPanel {
         tabbedPane.add("Obfuscation", obfuscationTab.getUiComponent());
         tabbedPane.add("Client-side template injection", CSTITab.getUiComponent());
         tabbedPane.add("Scriptless attacks", scriptlessAttacksTab.getUiComponent());
-        tabbedPane.add("Polygots", polygotsTab.getUiComponent());
+        tabbedPane.add("Polyglots", polyglotsTab.getUiComponent());
         tabbedPane.add("WAF bypass global objects", wafBypassTab.getUiComponent());
         tabbedPane.add("Content types", contentTypesTab.getUiComponent());
         tabbedPane.add("Response content types", responseContentTypesTab.getUiComponent());
