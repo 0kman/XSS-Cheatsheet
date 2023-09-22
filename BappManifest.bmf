@@ -1,0 +1,13 @@
+Uuid: eb75d39684b845adb457bcb050d1aa1d
+ExtensionType: 1
+Name: XSS Cheatsheet
+RepoName: xss-cheatsheet
+ScreenVersion: 1.0.0
+SerialVersion: 1
+MinPlatformVersion: 4
+ProOnly: False
+Author: Kai Mannion
+ShortDescription: Incorporates PortSwigger's cross-site scripting cheat sheet into Burp.
+EntryPoint: releases/xss-cheatsheet-1.0.jar
+BuildCommand: ./gradlew jar
+SupportedProducts: Pro, Community
